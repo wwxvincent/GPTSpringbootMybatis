@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vincent.gptspringbootmd.mapper.RoleMapper">
+    <insert id="addUserWithRole" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO role(name, department_id, department_name, title)
+        VALUES (#{name}, #{department_id}, #{department_name}, #{title});
+    </insert>
+
+</mapper>
