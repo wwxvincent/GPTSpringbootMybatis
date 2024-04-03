@@ -3,6 +3,7 @@ package com.vincent.gptspringbootmd.mapper;
 import com.vincent.gptspringbootmd.entity.User;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.annotation.MapperScan;
 
@@ -20,4 +21,6 @@ public interface UserMapper {
     // request from multiple tables
     @MapKey("id")
     List<Map<String, Object>> findAllUsersWithDepartment(Long departmentId);
+    // insert batch
+    int insertBatch(@Param("users") List<User> users);
 }

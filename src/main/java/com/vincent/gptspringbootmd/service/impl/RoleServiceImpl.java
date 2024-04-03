@@ -29,6 +29,7 @@ public class RoleServiceImpl implements RoleService {
         User user = new User();
         user.setName(role.getName());
         user.setDepId(role.getDepartment_id());
+        user.setId(role.getId());
         System.out.println("New User: " + user.toString());
         System.out.println("Role info: " + role.toString());
         userMapper.insertUser(user);

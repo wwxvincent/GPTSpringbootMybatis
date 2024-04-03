@@ -5,6 +5,7 @@ import com.vincent.gptspringbootmd.mapper.UserMapper;
 import com.vincent.gptspringbootmd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Map<String, Object>> findUsersByDepartmentId(Long departmentId) {
         return userMapper.findAllUsersWithDepartment(departmentId);
+    }
+
+    @Override
+    @Transactional
+    public int insertBatch(List<User> users) {
+//        for(User user : users ) {
+//            System.out.println(user.toString());
+//        }
+        return userMapper.insertBatch(users);
     }
 }

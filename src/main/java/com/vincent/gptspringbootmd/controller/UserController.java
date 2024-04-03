@@ -44,9 +44,16 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping("/batch")
+    @ApiOperation("Insert users in batch")
+    public ResponseEntity<Void> insertUserInBatch(@RequestBody List<User> users) {
+        userService.insertBatch(users);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @PutMapping("/{id}")
     @ApiOperation("Update an existing user")
-    public ResponseEntity<Void> updateUser(@PathVariable(value = "id") Long userId,
+    public ResponseEntity<Void> updateUser(@PathVariable(value = "id") Integer userId,
                                            @RequestBody User user) {
         user.setId(userId);
         userService.updateUser(user);

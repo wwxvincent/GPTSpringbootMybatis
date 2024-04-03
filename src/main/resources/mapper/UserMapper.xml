@@ -19,8 +19,15 @@
     </select>
 
     <insert id="insertUser" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO user (name, email, depId)
-        VALUES (#{name}, #{email}, #{depId});
+        INSERT INTO user (id, name, email, depId)
+        VALUES (#{id}, #{name}, #{email}, #{depId});
+    </insert>
+    <insert id="insertBatch">
+        insert into user (id, name, email, depId)
+        VALUES
+        <foreach collection="users" item="user" separator=",">
+            (#{user.id}, #{user.name},#{user.email}, #{user.depId} )
+        </foreach>;
     </insert>
 
     <update id="updateUser">
@@ -31,7 +38,10 @@
                 name = #{name},
             </if>
             <if test = "email != null and email !='' " >
-                email = #{email}
+                email = #{email},
+            </if>
+            <if test="depId !=null" >
+                depId = #{depId}
             </if>
         </set>
         where id = #{id};

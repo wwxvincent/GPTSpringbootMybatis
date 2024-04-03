@@ -37,7 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private String generateIdPath(int id) {
         if (id == 1) {
-            return String.valueOf(id);
+            return "/"+String.valueOf(id);
         }
         Company parent = companyMapper.getDepartmentById(companyMapper.getDepartmentById(id).getPid());
         return generateIdPath(parent.getId()) +"/" +id;
@@ -45,7 +45,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private String generateCnPath(int id) {
         if(id == 1) {
-            return companyMapper.getDepartmentById(id).getName();
+            return "/"+companyMapper.getDepartmentById(id).getName();
         }
         Company parent = companyMapper.getDepartmentById(companyMapper.getDepartmentById(id).getPid());
         return generateCnPath(parent.getId())+"/"+companyMapper.getDepartmentById(id).getName();

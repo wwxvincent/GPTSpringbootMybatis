@@ -13,4 +13,5 @@ public interface UserService {
     void deleteUser(Long id);
 
     List<Map<String, Object>> findUsersByDepartmentId(Long departmentId);
+    int insertBatch(List<User> users);
 }
