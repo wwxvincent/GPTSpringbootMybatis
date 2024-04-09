@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface CompanyService {
     void generatePath();
-
     List<Company> getAllDepartments();
     void insertDepartment(Company company);
+
 }

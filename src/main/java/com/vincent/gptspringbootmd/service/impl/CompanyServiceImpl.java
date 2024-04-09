@@ -3,6 +3,7 @@ package com.vincent.gptspringbootmd.service.impl;
 import com.vincent.gptspringbootmd.entity.Company;
 import com.vincent.gptspringbootmd.mapper.CompanyMapper;
 import com.vincent.gptspringbootmd.service.CompanyService;
+import com.vincent.gptspringbootmd.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
