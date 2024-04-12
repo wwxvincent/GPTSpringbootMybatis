@@ -1,3 +1,6 @@
+base:
+  path: /Users/wenxuanwang/Desktop/2ndRadar/test.txt
+  directory: /templates/test.xlsx
 Server:
   port: 8081
 spring:
@@ -22,18 +25,18 @@ springdoc:
     enabled: true
 
 
-swagger:
-  info:
-    title: Your API Title
-    description: Your API Description
-    version: 1.0.0
-  paths:
-    mapping: /api/**
-  host: localhost:8080
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
+#swagger:
+#  info:
+#    title: Your API Title
+#    description: Your API Description
+#    version: 1.0.0
+#  paths:
+#    mapping: /api/**
+#  host: localhost:8080
+#  securitySchemes:
+#    basicAuth:
+#      type: http
+#      scheme: basic
 
 #  setting:            # ??Ui????????
 #    language: en-US                   # Ui??????,???????:??(zh-CN)???(en-US)??????
