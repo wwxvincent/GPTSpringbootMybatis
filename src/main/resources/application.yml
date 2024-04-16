@@ -19,8 +19,9 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 
-springdoc:
-  api-docs:
+springfox:
+  documentation:
     enabled: true
-  swagger-ui:
-    enabled: true
+    auto-startup: true
+    swagger-ui:
+      enabled: true

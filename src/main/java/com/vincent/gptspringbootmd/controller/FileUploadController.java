@@ -2,6 +2,7 @@ package com.vincent.gptspringbootmd.controller;
 
 import com.vincent.gptspringbootmd.service.FileUploadService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,7 @@ public class FileUploadController {
     @Autowired
     private FileUploadService fileUploadService;
 
+    @ApiOperation("upload file to target path")
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {

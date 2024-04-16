@@ -43,10 +43,12 @@ public class GoodsListener implements ReadListener<GoodsExcelDTO> {
         }
 
         GoodsNotGood goodsNotGood = new GoodsNotGood(goodsExcelDTO, "falied");
+        System.out.println(goodsNotGood.toString());
 
     }
 
-    private void saveFile(MultipartFile file) throws IOException {
+    private void writeGoodsNotGoodToExcel(List<GoodsNotGood> goodsNotGoodList, String outputFilePath) throws IOException {
+
     }
 
 
