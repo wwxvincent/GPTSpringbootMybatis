@@ -1,11 +1,11 @@
 package com.vincent.gptspringbootmd.entity;
 
-import lombok.AllArgsConstructor;
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class GoodsNotGood extends Goods{
+    @ExcelProperty(index = 4)
     String failedReason;
 
     public GoodsNotGood(GoodsExcelDTO goodsExcelDTO, String failed) {

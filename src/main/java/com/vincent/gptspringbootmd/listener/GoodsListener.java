@@ -3,58 +3,52 @@ package com.vincent.gptspringbootmd.listener;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.util.ListUtils;
-import com.vincent.gptspringbootmd.entity.Goods;
 import com.vincent.gptspringbootmd.entity.GoodsExcelDTO;
 import com.vincent.gptspringbootmd.entity.GoodsNotGood;
-import com.vincent.gptspringbootmd.service.GoodsService;
+import com.vincent.gptspringbootmd.mapper.GoodsMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.util.StringUtils;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.read.listener.ReadListener;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.util.StringUtils;
 
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+
 import java.util.List;
 
 @Slf4j
 public class GoodsListener implements ReadListener<GoodsExcelDTO> {
 
-    private GoodsService goodsService;
+    private GoodsMapper goodsMapper;
     private List<GoodsExcelDTO> goodsExcelDTOList = ListUtils.newArrayList();
-    private final List<Goods> goodsList = ListUtils.newArrayList();
+    //private final List<Goods> goodsList = ListUtils.newArrayList();
+    private final List<GoodsNotGood> goodsNotGoodList = ListUtils.newArrayList();
 
-    public GoodsListener() {
+    public GoodsListener(GoodsMapper goodsMapper) {
+        this.goodsMapper=goodsMapper;
+    }
 
-    }
-    public GoodsListener(GoodsService goodsService) {
-        this.goodsService=goodsService;
-    }
+    //invoke(), 每读一次excel，就执行一次
     @Override
     public void invoke(GoodsExcelDTO goodsExcelDTO, AnalysisContext analysisContext) {
         goodsExcelDTOList.add(goodsExcelDTO);
-        for(GoodsExcelDTO item : goodsExcelDTOList) {
-            System.out.println(item.toString());
+        //check the input is okay or not
+        //for now, all no good
+        if(false) {
+            goodsNotGoodList.add( new GoodsNotGood(goodsExcelDTO, "something is wrong buddy") );
         }
 
-        GoodsNotGood goodsNotGood = new GoodsNotGood(goodsExcelDTO, "falied");
-        System.out.println(goodsNotGood.toString());
-
     }
-
-    private void writeGoodsNotGoodToExcel(List<GoodsNotGood> goodsNotGoodList, String outputFilePath) throws IOException {
-
-    }
-
-
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+        System.out.println("Listener: all not good goods list");
+        for(GoodsNotGood goodsNotGood: goodsNotGoodList) {
+            System.out.println(goodsNotGood.toString());
+        }
+    }
 
+    public List<GoodsNotGood> getGoodsNotGoodList() {
+        return goodsNotGoodList;
+    }
+    public List<GoodsExcelDTO> getGoodsExcelDTOList() {
+        return goodsExcelDTOList;
     }
 }
