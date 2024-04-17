@@ -1,6 +1,7 @@
 package com.vincent.gptspringbootmd.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.core.io.Resource;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,6 +40,30 @@ public class FileDownLoadController {
                 .headers(headers)
                 .body(resource);
     }
+
+    @ApiOperation("运行中文字符下载")
+    @PostMapping("/downloadPro")
+    public ResponseEntity<Resource> downloadFilePro() throws IOException {
+        Path path = Paths.get("/Users/wenxuanwang/Desktop/中文名字测试.xlsx");
+        File file = path.toFile();
+        if (!file.exists() || !file.isFile()) {
+            return ResponseEntity.notFound().build();
+        }
+        Resource resource = new FileSystemResource(file);
+        // set response header
+        String fileName = URLEncoder.encode(resource.getFilename(), "UTF-8");
+        HttpHeaders headers = new HttpHeaders();
+        //headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
+
+
+
+
 //    @GetMapping("/{filePath:.+}")
     @PostMapping("/testFile")
     public ResponseEntity<Resource> downloadFile () {
