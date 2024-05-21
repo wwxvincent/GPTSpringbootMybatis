@@ -5,6 +5,15 @@ base:
   uploadDir: /Users/wenxuanwang/Documents
 Server:
   port: 8081
+logging:
+  level:
+    com.baomidou: debug
+    com.baomidou.mybatisplus: debug
+    com.baomidou.dynamic: debug
+    com.vincent.gptspringbootmd.*: debug
+    org.mybatis: debug
+    org.springframework.jdbc.core: debug
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

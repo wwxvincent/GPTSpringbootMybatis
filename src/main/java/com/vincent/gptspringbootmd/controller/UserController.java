@@ -4,6 +4,7 @@ import com.vincent.gptspringbootmd.entity.User;
 import com.vincent.gptspringbootmd.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("api/users")
 @Api(tags = "User Management", description = "Operations pertaining to user management")
