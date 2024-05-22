@@ -2,10 +2,12 @@ package com.vincent.gptspringbootmd.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +16,15 @@ import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 
+@Slf4j
 @RestController
 @RequestMapping("api/download")
 @Api(tags = "download", description = "download file")
@@ -39,6 +44,29 @@ public class FileDownLoadController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(resource);
+    }
+
+    @ApiOperation("下载模版")
+    @PostMapping("/downloadTemplate")
+    public ResponseEntity<Resource> downloadTemplate() throws UnsupportedEncodingException {
+        log.info("下载模版");
+        ClassPathResource resource = new ClassPathResource(DIRECTORY_PATH);
+//        if(!resource.exists()) return ResponseEntity.status(org.springframework.http.HttpStatusHttpStatus.NOT_FOUND);
+        if(!resource.exists()) return (ResponseEntity<Resource>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = URLEncoder.encode(Objects.requireNonNull(resource.getFilename()), "UTF-8");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
+
+//        return ResponseEntity.ok()
+//                .header(headers)
+//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+//                .body(resource);
+
+        return ResponseEntity.ok()
+                .header(String.valueOf(headers))
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+
     }
 
     @ApiOperation("运行中文字符下载")
